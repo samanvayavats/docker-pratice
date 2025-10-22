@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - mongo_compose_volume:/data/db
+    ports:
+      - '27107:27107'
+  backend:
+    image : pratice-docker
+    container_name: backend
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URL: mongodb://mongodb:27107
+
+volumes:
+ mongo_compose_volume:
